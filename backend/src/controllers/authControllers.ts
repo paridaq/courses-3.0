@@ -83,3 +83,6 @@ export const loginController=async(req:Request,res:Response):Promise<Response | 
         })
     }
 }
+
+
+export const deleteUser()
