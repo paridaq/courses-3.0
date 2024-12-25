@@ -85,4 +85,7 @@ export const loginController=async(req:Request,res:Response):Promise<Response | 
 }
 
 
-export const deleteUser()
+export const deleteUser=async(req:Request,res:Response)=>{
+    const {email,name,password} = req.body as User
+
+}
