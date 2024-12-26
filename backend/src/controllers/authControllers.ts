@@ -5,7 +5,7 @@ type User = {
     email:string;
     password:string;
 }
-export const registerController =async(req:Request,res:Response):Promise<Response | undefined>=>{
+export const registerController =async(req:Request,res:Response):Promise<any>=>{
     const {name,email,password} = req.body as User;
     try {
 
@@ -44,7 +44,7 @@ export const registerController =async(req:Request,res:Response):Promise<Respons
     }
 }
 
-export const loginController=async(req:Request,res:Response):Promise<Response | undefined>=>{
+export const loginController=async(req:Request,res:Response):Promise<any>=>{
     const{email,password} = req.body as User;
     try {
         if(!email){

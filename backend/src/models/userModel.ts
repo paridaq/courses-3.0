@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
+import mongoose,{Schema} from 'mongoose'
 
-const userSchema = new mongoose.Schema({
+const userSchema:Schema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -12,7 +12,50 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type:String
-    }
+    },
+    purchasedProducts:[
+        {
+            product:{
+                type:mongoose.Schema.Types.ObjectId,ref:'Product',required:true
+            },
+            productPrice:{
+                type:Number,
+                required:true
+            },
+            dateOfPurchase:{
+                type:Date,
+                default:Date.now
+            }
+        }
+    ]
+
 },{timestamps:true})
 
 export default mongoose.model('Users',userSchema)
+
+/*
+this is how the table gone show after purchasing the product .just the reference 
+how it gone look like.where i get from?(chatgpt) for the better understanding of
+schema models
+{
+  "_id": "64a9f1f6d6f0b8e5d5c8a9b1",  // Auto-generated ObjectId
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "$2b$10$7zG8KQOWc2k1B6NJ3lRe5eOq1/BC2Ip/DAGnVZ8UN0ShpY7Hfw1w2", // Encrypted password
+  "purchasedProducts": [
+    {
+      "_id": "64a9f2a2e8b3b9a6e5c8b1c3", // Auto-generated ObjectId for this entry
+      "product": "64a8f0e6b6f0a8c1d5c8b7e1", // Reference to the Product collection
+      "paidPrice": 500, // Price in smallest currency unit
+      "dateOfPurchase": "2024-12-26T12:34:56.789Z" // ISO timestamp
+    },
+    {
+      "_id": "64a9f3b2e8c4b9d7e6c8b2d4", // Another purchase entry
+      "product": "64a8f0f7b7f0a8c1d5c8b8e2",
+      "paidPrice": 1000,
+      "dateOfPurchase": "2024-12-27T09:00:00.000Z"
+    }
+  ]
+}
+
+*/
