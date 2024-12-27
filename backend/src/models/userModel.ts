@@ -1,6 +1,20 @@
-import mongoose,{Schema} from 'mongoose'
+import mongoose,{Schema,Document} from 'mongoose'
 
-const userSchema:Schema = new mongoose.Schema({
+interface purchasedProduct{
+    
+    paidPrice:number,
+    dateOfPurchase:Date;
+}
+interface User extends Document{
+    name:string,
+    email:string,
+    password?:string;
+    purchasedProducts:purchasedProduct[];
+
+    
+}
+
+const userSchema:Schema = new mongoose.Schema<User>({
     name:{
         type:String,
         required:true,
@@ -8,7 +22,8 @@ const userSchema:Schema = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     password:{
         type:String
@@ -16,9 +31,12 @@ const userSchema:Schema = new mongoose.Schema({
     purchasedProducts:[
         {
             product:{
-                type:mongoose.Schema.Types.ObjectId,ref:'Product',required:true
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'Products',
+                required:true
             },
-            productPrice:{
+            
+            paidPrice:{
                 type:Number,
                 required:true
             },
@@ -31,12 +49,12 @@ const userSchema:Schema = new mongoose.Schema({
 
 },{timestamps:true})
 
-export default mongoose.model('Users',userSchema)
+export default mongoose.model<User>('Users',userSchema)
 
 /*
 this is how the table gone show after purchasing the product .just the reference 
-how it gone look like.where i get from?(chatgpt) for the better understanding of
-schema models
+how it gone look like.where i get it  from?(chatgpt) for the better understanding of
+schema models and remembering it.As this problem i faced during my project work
 {
   "_id": "64a9f1f6d6f0b8e5d5c8a9b1",  // Auto-generated ObjectId
   "name": "John Doe",
