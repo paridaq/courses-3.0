@@ -1,7 +1,8 @@
+import productModel from './productModel';
 import mongoose,{Schema,Document} from 'mongoose'
 
 interface purchasedProduct{
-    
+    product:mongoose.Schema.Types.ObjectId,
     paidPrice:number,
     dateOfPurchase:Date;
 }
@@ -32,7 +33,7 @@ const userSchema:Schema = new mongoose.Schema<User>({
         {
             product:{
                 type:mongoose.Schema.Types.ObjectId,
-                ref:'Products',
+                ref:'Product',
                 required:true
             },
             
@@ -49,7 +50,7 @@ const userSchema:Schema = new mongoose.Schema<User>({
 
 },{timestamps:true})
 
-export default mongoose.model<User>('Users',userSchema)
+export default mongoose.model<User>('User',userSchema)
 
 /*
 this is how the table gone show after purchasing the product .just the reference 

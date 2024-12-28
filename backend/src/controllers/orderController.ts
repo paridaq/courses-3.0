@@ -21,6 +21,11 @@ export const placeOrder = async(req:Request,res:Response):Promise<any>=>{
             })
         }
         const user = await userModel.findOne({email})
+        if(!user){
+            return res.send({
+                message:'user not found '
+            })
+        }
        
         const product = await productModel.findOne({productName})
         if(!product){
@@ -28,17 +33,25 @@ export const placeOrder = async(req:Request,res:Response):Promise<any>=>{
                 message:'product not found to buy'
             })
         }
-        if(!user){
-            return res.send({
-                message:'user not found '
-            })
-        }
+     
         user.purchasedProducts.push({
-            product
-        paidPrice:productPrice
+            product:product._id,
+            paidPrice:productPrice,
+            dateOfPurchase:new Date()
         })
-
+        await user.save();
+        return res.status(200).send({
+            success:true,
+            message:'order placed successfully',
+            user
+        })
+ 
     } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            message:'server error(during purchasing the product)',
+            error
+        })
         
     }
 }
