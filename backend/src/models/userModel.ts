@@ -1,7 +1,7 @@
 import productModel from './productModel';
 import mongoose,{Schema,Document} from 'mongoose'
 
-interface purchasedProduct{
+interface purchasedProduct extends Document {
     product:mongoose.Schema.Types.ObjectId,
     paidPrice:number,
     dateOfPurchase:Date;

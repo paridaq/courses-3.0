@@ -8,6 +8,7 @@ import productModel from "../models/productModel";
     productName:string,
     productPrice:number,
     
+    
 }
 
 
@@ -23,7 +24,7 @@ export const placeOrder = async(req:Request,res:Response):Promise<any>=>{
         const user = await userModel.findOne({email})
         if(!user){
             return res.send({
-                message:'user not found '
+                message:'user not found'
             })
         }
        
