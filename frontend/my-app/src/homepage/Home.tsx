@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   const navigate  = useNavigate();
+  
   return (
     <div>
       <div className="bg-gradient-to-r from-white to-green-100 min-h-screen flex flex-col items-center justify-center pt-16">
