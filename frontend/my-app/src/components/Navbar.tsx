@@ -17,7 +17,7 @@ const Navbar = () => {
           <a href="#" className="hover:text-black"onClick={()=>navigate('/about')}>About</a>
           <a href="#" className="hover:text-black" onClick={()=>navigate('/dashboard')}>Dashboard</a>
           <a href="#" className="hover:text-black" onClick={()=>navigate('/courses')}>Courses</a>
-          <a href="#" className="hover:text-black">Sign In</a>
+          <a  className="hover:text-black" onClick={()=>{navigate('/signIn')}}>Sign In</a>
         </div>
       </div>
     </nav>
