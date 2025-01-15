@@ -76,10 +76,15 @@ export const updateProduct = async(req:Request,res:Response):Promise<any>=>{
     })
     }
     return res.status(200).send({
-        success
+        success:true,
+        message:'product details updated successfully'
     })
 
    } catch (error) {
-    
+    console.log(error)
+    return res.status(500).send({
+        success:false,
+        message:'error in updateing the product details'
+    })
    }
 }

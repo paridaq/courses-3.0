@@ -14,6 +14,7 @@ interface User extends Document{
 
     
 }
+//document typescript interface provided by mongoose library
 
 const userSchema:Schema = new mongoose.Schema<User>({
     name:{
