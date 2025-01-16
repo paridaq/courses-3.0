@@ -1,5 +1,6 @@
 import axios from 'axios'
 import reacct, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const SignIn=()=>{
     const[email,setEmail] = useState<string>('')
@@ -7,6 +8,7 @@ const SignIn=()=>{
     const[name,setName] = useState<string>('')
     const[address,setAddress] = useState<string>('')
     const[phone,setPhone] = useState<number>()
+    const navigate = useNavigate();
 
 
     const handleSubmit=async(e:React.FormEvent<HTMLFormElement>)=>{
@@ -21,13 +23,18 @@ const SignIn=()=>{
         },
         body:JSON.stringify(data)
       })
-      console.log(res.status)
+      const result = await res.json();
+
+      // console.log(res.status)
       // const result = await axios.post('http://localhost:8080/api/auth/register',{email,name,password,phone,address})
       // const res = result.data
     
       if(!res.ok){
         throw new Error('http error in registration')
       }
+      console.log(result.newuser.name)
+      navigate('/',{state:{name:result.newuser.name}})
+
     
       console.log(res);
     }catch(error){

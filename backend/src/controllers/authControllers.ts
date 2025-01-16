@@ -41,7 +41,8 @@ export const registerController =async(req:Request,res:Response):Promise<any>=>{
         await newuser.save();
         res.status(201).send({
             success:true,
-            message:'registerd succesfully'
+            message:'registerd succesfully',
+            newuser
 
         })
         
