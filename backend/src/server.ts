@@ -16,7 +16,9 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
-app.use('api/auth',authRoute)
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/auth',authRoute)
 
 
 const port = 8080;

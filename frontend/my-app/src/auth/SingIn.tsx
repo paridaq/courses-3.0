@@ -14,22 +14,22 @@ const SignIn=()=>{
         const data = {email,password,name,address,phone}
       
       try{
-      // const res = await fetch('http://localhost:8080/api/auth/register',{
-      //   method:'POST',
-      //   headers:{
-      //       'Content-Type':'application/json'
-      //   },
-      //   body:JSON.stringify(data)
-      // })
-      // console.log(res.status)
-      const result = await axios.post('http://localhost:8080/api/auth/register',{email,name,password,phone,address})
-      const res = result.data
+      const res = await fetch('http://localhost:8080/api/auth/register',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+      })
+      console.log(res.status)
+      // const result = await axios.post('http://localhost:8080/api/auth/register',{email,name,password,phone,address})
+      // const res = result.data
     
       if(!res.ok){
         throw new Error('http error in registration')
       }
     
-      console.log(result);
+      console.log(res);
     }catch(error){
       console.log(error)
 

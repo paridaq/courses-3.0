@@ -10,6 +10,8 @@ interface User extends Document{
     name:string,
     email:string,
     password?:string;
+    address:string,
+    phone:Number,
     purchasedProducts:purchasedProduct[];
 
     
@@ -29,6 +31,12 @@ const userSchema:Schema = new mongoose.Schema<User>({
     },
     password:{
         type:String
+    },
+    address:{
+        type:String
+    },
+    phone:{
+        type:Number
     },
     purchasedProducts:[
         {
