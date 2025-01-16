@@ -1,3 +1,4 @@
+import axios from 'axios'
 import reacct, { useState } from 'react'
 
 const SignIn=()=>{
@@ -13,20 +14,24 @@ const SignIn=()=>{
         const data = {email,password,name,address,phone}
       
       try{
-      const res = await fetch('http://localhost:3000/api/auth/register',{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify(data)
-      })
+      // const res = await fetch('http://localhost:8080/api/auth/register',{
+      //   method:'POST',
+      //   headers:{
+      //       'Content-Type':'application/json'
+      //   },
+      //   body:JSON.stringify(data)
+      // })
+      // console.log(res.status)
+      const result = await axios.post('http://localhost:8080/api/auth/register',{email,name,password,phone,address})
+      const res = result.data
+    
       if(!res.ok){
         throw new Error('http error in registration')
       }
-      const result = await res.json();
+    
       console.log(result);
     }catch(error){
-      console.log('error during registration')
+      console.log(error)
 
     }
     }
