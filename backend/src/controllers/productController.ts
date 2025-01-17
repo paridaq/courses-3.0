@@ -12,30 +12,6 @@ type Product={
 
 }
 
-export const addProduct = async(req:Request,res:Response):Promise<any>=>{
-    const {productName,price} = req.body as Product
-    try {
-        if(!productName){
-            return res.send({
-                message:'productname is required'
-            })
-        }
-        if(!price){
-            return res.send({
-                message:'price is required'
-            })
-        }
-        const registeredProduct = new productModel({productName,price})
-        await registeredProduct.save();
-        return res.status(200).send({
-            success:true,
-            message:'product registerd successfully',
-            registeredProduct
-        })
-    } catch (error) {
-        
-    }
-}
 
 export const removeProduct = async(req:Request,res:Response):Promise<any>=>{
       const {productName} = req.body as Product
