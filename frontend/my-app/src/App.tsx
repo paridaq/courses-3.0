@@ -9,6 +9,7 @@ import Course from './components/Course';
 import Dashboard from './components/Dashboard';
 import About from './components/About';
 import SignIn from './auth/SingIn';
+import AdminDashboard from './admin/AdminDashboard';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,6 +25,7 @@ function App() {
     <Route path='/about'  element={<About/>}/>
     <Route path='/corses' element = {<Course/>}/>
     <Route path='/signIn' element={<SignIn/>}/>
+    <Route path='/admindashboard'  element={<AdminDashboard/>}/>
    </Routes>
    <Footer/>
    
