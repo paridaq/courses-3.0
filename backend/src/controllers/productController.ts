@@ -2,6 +2,7 @@ import {Request,Response} from 'express'
 import productModel from "../models/productModel";
 
 import userModel from "../models/userModel";
+import { tracingChannel } from 'diagnostics_channel';
 // i know i can create a separate file for types then i am gone import it i do like this for syntax memorization
 //we use promise<any> because this asynchronous function can return any type like any means 
 // here may b integer ,boolean,string etc so we use any here is promise
@@ -11,6 +12,42 @@ type Product={
     price:number,
 
 }
+export const addProduct = async(req:Request,res:Response):Promise<any>=>{
+    const {productName,price} = req.body
+    try {
+        if(!productName){
+            return res.send({
+                message:'product name is required '
+            })
+        }
+        if(!price){
+            return res.send({
+                message:'setting price of the product is required'
+            })
+        }
+        const existingproduct = await productModel.findOne({productName})
+        if(existingproduct){
+            return res.send({
+                message:'product in this name already exist'
+            })
+        }
+        const newProduct = new productModel({productName,price})
+        await newProduct.save()
+        return res.status(201).send({
+            success:true,
+            message:'product succesfully created',
+            newProduct
+        })
+        
+    } catch (error) {
+        console.log(error)
+       return  res.status(404).send({
+            message:'error in addding the product'
+        })
+        
+    }
+}
+
 
 
 export const removeProduct = async(req:Request,res:Response):Promise<any>=>{

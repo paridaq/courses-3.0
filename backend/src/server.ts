@@ -4,6 +4,7 @@ import connectDb from './config/db';
 import {Request,Response} from 'express'
 import authRoute from './routes/authRoute'
 import cors from 'cors'
+import productRoute from './routes/productRoute'
 
 
 //dotenv.config() isfunction is used to load environment variable into process.env
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth',authRoute)
+app.use('/api/product',productRoute)
 
 
 const port = 8080;
