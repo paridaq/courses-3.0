@@ -48,6 +48,27 @@ export const addProduct = async(req:Request,res:Response):Promise<any>=>{
     }
 }
 
+export const getProducts =async(req:Request,res:Response):Promise<any>=>{
+    try {
+        const Products = await productModel.find();
+       return res.status(200).send({
+        success:true,
+        message:'product found succesfully',
+        Products
+       })
+
+    } catch (error) {
+        console.log(error)
+        return res.send({
+            success:false,
+            message:'server error in fetching products',
+            error
+        })
+        
+    }
+
+}
+
 
 
 export const removeProduct = async(req:Request,res:Response):Promise<any>=>{
