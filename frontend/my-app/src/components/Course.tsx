@@ -46,6 +46,8 @@
                         <div key={product._id}>
                             <h2>{product.productName}</h2>
                             <h1>{product.price}</h1>
+                            <button className='bg-blue-600 text-cyan-50'> view details</button>
+                            <button className='bg-yellow-300 text-black'>buy</button>
                         </div>
                     ))}
                     {/* <img src="course-image.jpg" alt="Course" className="w-48 h-auto" />
