@@ -38,7 +38,28 @@
                 if(error){
                     return <div>Error:{error}</div>
                 }
-
+                const loadRazorpayScript = ()=>{
+                    return new Promise((resolve)=>{
+                        const script = document.createElement('script')
+                        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+                        script.onload=()=>resolve(true);
+                        script.onerror=()=>resolve(false);
+                        document.body.appendChild(script);
+                    })
+                }
+                const handleBuyNow = async()=>{
+                    const isScriptLoaded = await loadRazorpayScript();
+                    if(!isScriptLoaded){
+                        alert('razorpay sdk failed to load.Please check the internate connection')
+                        return
+                    }
+                    try {
+                        const data = await fetch
+                    } catch (error) {
+                        
+                    }
+                }
+             
             
             return (
                 <div className="flex border border-gray-300 rounded-lg overflow-hidden w-full max-w-xl mt-5">
