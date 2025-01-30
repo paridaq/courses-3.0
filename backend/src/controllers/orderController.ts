@@ -17,7 +17,7 @@ import productModel from "../models/productModel";
     
 }
 const razorpay = new Razorpay({
-    key_id: process.env.KEY_ID || '',
+    key_id: process.env.KEY_ID || 'rzp_test_3QUeZLNDH6a9tl',
     key_secret: process.env.KEY_SECRET || ''
 })
 
@@ -51,13 +51,14 @@ type source ={
     orderId:any;
     paymentId:any;
     signature:any;
-    productName:string;
+    courseName:string;
     productPrice:number;
+    
 }
 
 export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
     const {email} = req.params;
-    const{orderId,paymentId,signature,productName,productPrice} = req.body as source
+    const{orderId,paymentId,signature,courseName,productPrice,} = req.body as source
     try{
 
     if (!process.env.KEY_SECRET) {
@@ -76,30 +77,37 @@ export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
         })
        
     }
-    const product = await productModel.findOne({productName})
+    const product = await productModel.findOne({productName:courseName})
     if (!product) {
         return res.status(404).send({
             success: false,
             message: 'Product not found'
         });
     }
-    const productId = product._id as mongoose.Schema.Types.ObjectId
-    const user = await userModel.findOne({email})
-    if(!user){
-        return res.send({
-            message:'user not registered'
-        })
-    }
-  const orderDate = new Date() as unknown as Date
     
-    user.purchasedProducts.push({
-        product:productId,
-        productName,
-        paidPrice:productPrice,
-        dateOfPurchase:orderDate 
+    // const user = await userModel.findOne({email})
+    // if(!user){
+    //     return res.send({
+    //         message:'user not registered'
+    //     })
+    // }
+    // const orderDate = new Date()
+  
+  const user = await userModel.findOneAndUpdate(
+    {email},
+    {
+        $push:{
+            purchasedProducts:{
+                productName:courseName,
+                paidPrice:productPrice,
+                dateOfPurchase: new Date()
+            }
+        }
+    },
+    {new:true}
+  )
     
-    })
-    await user.save();
+    
     return res.send({
         success:true,
         message:'purchased succesfully',

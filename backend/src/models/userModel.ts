@@ -2,7 +2,7 @@ import productModel from './productModel';
 import mongoose,{Schema,Document} from 'mongoose'
 
 interface purchasedProduct extends Document {
-    product:mongoose.Schema.Types.ObjectId,
+    
     productName:string;
     paidPrice:number,
     dateOfPurchase:Date;
@@ -44,11 +44,7 @@ const userSchema:Schema = new mongoose.Schema<User>({
     },
     purchasedProducts:[
         {
-            product:{
-                type:mongoose.Schema.Types.ObjectId,
-                ref:'Product',
-                required:true
-            },
+        
             productName:{
                 type:String,
                 required:true
@@ -60,8 +56,10 @@ const userSchema:Schema = new mongoose.Schema<User>({
             },
             dateOfPurchase:{
                 type:Date,
-                default:Date.now
+                required:true,
             }
+           
+          
         }
     ]
 

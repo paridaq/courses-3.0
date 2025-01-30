@@ -1,9 +1,8 @@
 import express from 'express'
+import { createOrder, verifyOrder } from '../controllers/orderController'
 
+const router = express.Router()
 
-const router = express.Router();
-
-router.get('orders')
-
-
+router.post('/create-order',createOrder)
+router.post('/verify-order',verifyOrder)
 export default router
