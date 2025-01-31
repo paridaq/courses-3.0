@@ -47,14 +47,20 @@
                         document.body.appendChild(script);
                     })
                 }
-                const handleBuyNow = async()=>{
+                const handleBuyNow = async (product: Product) => {
                     const isScriptLoaded = await loadRazorpayScript();
                     if(!isScriptLoaded){
                         alert('razorpay sdk failed to load.Please check the internate connection')
-                        return
+                        return;
                     }
                     try {
-                        const data = await fetch
+                        const data = await fetch('http://localhost:8080/api/order/create-order',{
+                            method:"POST",
+                            headers:{
+                                "Content-Type":"application/json"
+                            },
+                            body:JSON.stringify(data)
+                        })
                     } catch (error) {
                         
                     }
@@ -68,7 +74,7 @@
                             <h2>{product.productName}</h2>
                             <h1>{product.price}</h1>
                             <button className='bg-blue-600 text-cyan-50'> view details</button>
-                            <button className='bg-yellow-300 text-black'>buy</button>
+                            <button className='bg-yellow-300 text-black'onClick={handleBuyNow}>buy</button>
                         </div>
                     ))}
                     {/* <img src="course-image.jpg" alt="Course" className="w-48 h-auto" />
