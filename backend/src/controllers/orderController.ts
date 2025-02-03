@@ -17,13 +17,23 @@ import productModel from "../models/productModel";
     
 }
 const razorpay = new Razorpay({
-    key_id: process.env.KEY_ID || 'rzp_test_3QUeZLNDH6a9tl',
-    key_secret: process.env.KEY_SECRET || ''
+    key_id:  'rzp_test_8RFS04mZ8mAZ43',
+    key_secret:  '3L8BpJhzGH5jTyr6zHW2q3Wa'
 })
 
 
 export const createOrder = async(req:Request,res:Response):Promise<any>=>{
     const{productName,productPrice} = req.body;
+    if(!productName){
+        return res.send({
+            message:'product name is required'
+        })
+    }   
+    if(!productPrice){
+        return res.send({
+            message:'product price is required'
+        })
+    }
     try{
    
     const options = {
@@ -31,7 +41,7 @@ export const createOrder = async(req:Request,res:Response):Promise<any>=>{
         currency:"INR",
         receipt:`reciept_${Date.now()}`,
     }
-    const order = razorpay.orders.create(options)
+    const order = await razorpay.orders.create(options)
     return res.status(200).send({
         success:true,
         message:'order created succesfully',
@@ -51,24 +61,19 @@ type source ={
     orderId:any;
     paymentId:any;
     signature:any;
-    courseName:string;
+    productName:string;
     productPrice:number;
     
 }
 
 export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
     const {email} = req.params;
-    const{orderId,paymentId,signature,courseName,productPrice,} = req.body as source
+    const{orderId,paymentId,signature,productName,productPrice,} = req.body as source
+    console.log(orderId,paymentId,signature,productName,productPrice)
     try{
 
-    if (!process.env.KEY_SECRET) {
-        return res.status(400).send({
-            success: false,
-            message: 'KEY_SECRET is not defined'
-        });
-    }
     const generateSignature = crypto
-    .createHmac('Sha256', process.env.KEY_SECRET)
+    .createHmac('Sha256', '3L8BpJhzGH5jTyr6zHW2q3Wa')
     .update(orderId+'|'+paymentId)
     .digest('hex');
     if(generateSignature!=signature){
@@ -77,7 +82,7 @@ export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
         })
        
     }
-    const product = await productModel.findOne({productName:courseName})
+    const product = await productModel.findOne({productName})
     if (!product) {
         return res.status(404).send({
             success: false,
@@ -98,7 +103,7 @@ export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
     {
         $push:{
             purchasedProducts:{
-                productName:courseName,
+                productName,
                 paidPrice:productPrice,
                 dateOfPurchase: new Date()
             }

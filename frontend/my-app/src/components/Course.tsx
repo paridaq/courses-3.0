@@ -1,11 +1,18 @@
 
         import React from 'react';
         import {useState,useEffect} from 'react'
+import { useUser } from '../Context/AuthContext';
         type Product={
             _id:string;
             productName:string;
             price:number;
 
+        }
+
+        declare global {
+            interface Window {
+                Razorpay: any;
+            }
         }
         
 
@@ -15,6 +22,7 @@
             const[error,setError] = useState<string | null>(null)
             //| is bitwise or in javascript
             //|| is logical error in javascript
+            const email = localStorage.getItem('email')
             const fetchProducts = async()=>{
                 // In the fetch api the default method is GET mefod so there  is no need to add method in fetch
                 try{
@@ -48,19 +56,62 @@
                     })
                 }
                 const handleBuyNow = async (product: Product) => {
+
+                    
+                    const data = { productName: product.productName, productPrice: product.price }
                     const isScriptLoaded = await loadRazorpayScript();
                     if(!isScriptLoaded){
                         alert('razorpay sdk failed to load.Please check the internate connection')
                         return;
                     }
                     try {
-                        const data = await fetch('http://localhost:8080/api/order/create-order',{
+                        const response = await fetch('http://localhost:8080/api/order/create-order',{
                             method:"POST",
                             headers:{
                                 "Content-Type":"application/json"
                             },
                             body:JSON.stringify(data)
                         })
+                        const reddit = await response.json();
+
+                        const options = {
+                            key:'rzp_test_8RFS04mZ8mAZ43',
+                            amount:product.price*100,
+                            currency:"INR",
+                            name:'the Biswajit Parida',
+                            description:'purchased product',
+                            order_id:reddit.order.id,
+                            handler:async(response:any)=>{
+                                const result = {orderId:response.razorpay_order_id,
+                                  paymentId:response.razorpay_payment_id,
+                                  signature:response.razorpay_signature,
+                                  productName:product.productName,
+                                  productPrice:product.price 
+                                }
+                                console.log(result)
+                                const verificationResponse = await fetch(`http://localhost:8080/api/order/verify-order/${email}`,{
+                                    method:"POST",
+                                    headers:{
+                                     "Content-Type":"application/json"   
+                                    },
+                                body:JSON.stringify(result)
+                                }
+                                )
+                                if(verificationResponse.ok){
+                                    alert('payment successfull')
+                                }
+                                    else{
+                                        alert('payment failed')
+
+                                    }
+                                    
+                            }
+
+                            
+                        }
+                        const paymentObject = new window.Razorpay(options);
+                        paymentObject.open();
+
                     } catch (error) {
                         
                     }
@@ -74,7 +125,7 @@
                             <h2>{product.productName}</h2>
                             <h1>{product.price}</h1>
                             <button className='bg-blue-600 text-cyan-50'> view details</button>
-                            <button className='bg-yellow-300 text-black'onClick={handleBuyNow}>buy</button>
+                            <button className='bg-yellow-300 text-black' onClick={() => handleBuyNow(product)}>buy</button>
                         </div>
                     ))}
                     {/* <img src="course-image.jpg" alt="Course" className="w-48 h-auto" />

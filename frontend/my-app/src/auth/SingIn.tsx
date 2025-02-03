@@ -34,6 +34,7 @@ const SignIn=()=>{
       }
       console.log(result.newuser.name)
       navigate('/',{state:{name:result.newuser.name}})
+      localStorage.setItem("email",result.newuser.email)
 
     
       console.log(res);
