@@ -98,7 +98,34 @@ export const loginController=async(req:Request,res:Response):Promise<any>=>{
 }
 
 
-export const deleteUser=async(req:Request,res:Response)=>{
-    const {email,name,password} = req.body as User
+export const getuserDetails = async(req:Request,res:Response):Promise<any>=>{
+    const {email} = req.params;
+    if(!email){
+        return res.send({
+            message:'email required to get details '
+        })
+    }
+    try {
+        const details = await userModel.findOne({email});
+        if(!details){
+            return res.send({
+                message:'No details found regarding the user'
+            })
+        }
+        return res.status(200).send({
+            success:true,
+            message:'user details found succesfully',
+            details
+        })
 
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success:false,
+            message:'server error ',
+            error
+        })
+        
+    }
 }
