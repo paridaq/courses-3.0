@@ -57,49 +57,9 @@ export const registerController =async(req:Request,res:Response):Promise<any>=>{
     }
 }
 
-export const loginController=async(req:Request,res:Response):Promise<any>=>{
-    const{email,password} = req.body as User;
-    try {
-        if(!email){
-            return res.send({
-                message:'email is required'
-            })
-        }
-        if(!password){
-            return res.send({
-                message:'password is required'
-            })
-        }
-        const user = await userModel.findOne({email})
-        if(!user){
-            return res.send({
-                message:'Invalid emailId'
-            })
-        }
-        if(user.password !=password){
-            return res.send({
-                message:'wrong password'
-            })
-        }
-        return res.status(200).send({
-            success:true,
-            messsage:'Logedin succesfully',
-            user
-        })
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success:false,
-            message:'server error',
-            error
-        })
-    }
-}
-
 
 export const getuserDetails = async(req:Request,res:Response):Promise<any>=>{
-    const {email} = req.params;
+    const {email} = req.params ;
     if(!email){
         return res.send({
             message:'email required to get details '
@@ -128,4 +88,48 @@ export const getuserDetails = async(req:Request,res:Response):Promise<any>=>{
         })
         
     }
+}
+
+export const loginController =async(req:Request,res:Response):Promise<any>=>{
+   const {email,password} = req.body as User
+
+   if(!email){
+    return res.send({
+        message:'email is required'
+    })
+   }
+   if(!password){
+    return res.send({
+        message:'password is required'
+    })
+   }
+   try {
+    const user = await userModel.findOne({email});
+    if(!user){
+        return res.send({
+            message:'register befor Login'
+        })
+
+    }
+    if(user.password !=password){
+        return res.send({
+            message:'password does not match'
+        })
+    }
+    return res.status(200).send({
+        success:true,
+        message:'login successful',
+        user
+    })
+   } catch (error) {
+    console.log(error)
+    return res.status(500).send({
+        success: false,
+        message:'server error during login',
+        error
+    })
+    
+   }
+
+
 }

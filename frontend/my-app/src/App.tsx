@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard';
 import About from './components/About';
 import SignIn from './auth/SingIn';
 import AdminDashboard from './admin/AdminDashboard';
+import LogIn from './auth/LogIn';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,6 +27,7 @@ function App() {
     <Route path='/corses' element = {<Course/>}/>
     <Route path='/signIn' element={<SignIn/>}/>
     <Route path='/admindashboard'  element={<AdminDashboard/>}/>
+    <Route path='/login' element={<LogIn/>}/>
    </Routes>
    <Footer/>
    
