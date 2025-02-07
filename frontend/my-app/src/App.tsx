@@ -14,6 +14,7 @@ import LogIn from './auth/LogIn';
 
 function App() {
   const [count, setCount] = useState(0);
+  const[isAdmin,setIsAdmin] = useState<boolean>(false)
  
 
   return (
