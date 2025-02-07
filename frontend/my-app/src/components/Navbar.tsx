@@ -4,6 +4,12 @@ import { Navigate, useNavigate } from 'react-router-dom'
 const Navbar = () => {
   const  navigate = useNavigate();
   const [count,setCount ] = useState<Number>();
+  const[isAdmin,setIsAdmin] = useState<boolean>(false)
+  const email = localStorage.getItem('email')
+  if(email==='paridabiswa2k@gmail.com'){
+    setIsAdmin(true)
+  }
+
 
 
 

@@ -11,10 +11,12 @@ import About from './components/About';
 import SignIn from './auth/SingIn';
 import AdminDashboard from './admin/AdminDashboard';
 import LogIn from './auth/LogIn';
+import CheckRoute from './DashboardRoute/CheckRoute';
 
 function App() {
   const [count, setCount] = useState(0);
   const[isAdmin,setIsAdmin] = useState<boolean>(false)
+  
  
 
   return (
@@ -23,11 +25,11 @@ function App() {
    <Routes>
     <Route path='/' element={<Home/>}/>
     <Route path='/courses' element={<Course/>}/>
-    <Route path='/dashboard' element={<Dashboard/>}/>
+    <Route path='/dashboard' element={<CheckRoute/>}/>
     <Route path='/about'  element={<About/>}/>
     <Route path='/corses' element = {<Course/>}/>
     <Route path='/signIn' element={<SignIn/>}/>
-    <Route path='/admindashboard'  element={<AdminDashboard/>}/>
+    
     <Route path='/login' element={<LogIn/>}/>
    </Routes>
    <Footer/>
