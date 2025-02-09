@@ -5,11 +5,7 @@ const Navbar = () => {
   const  navigate = useNavigate();
   const [count,setCount ] = useState<Number>();
   const[isAdmin,setIsAdmin] = useState<boolean>(false)
-  const email = localStorage.getItem('email')
-  if(email==='paridabiswa2k@gmail.com'){
-    setIsAdmin(true)
-  }
-
+  
 
 
 
@@ -24,6 +20,7 @@ const Navbar = () => {
           <a href="#" className="hover:text-black" onClick={()=>navigate('/dashboard')}>Dashboard</a>
           <a href="#" className="hover:text-black" onClick={()=>navigate('/courses')}>Courses</a>
           <a  className="hover:text-black" onClick={()=>{navigate('/signIn')}}>Sign In</a>
+          <a  className="hover:text-black" onClick={()=>{navigate('/login')}}>Log In</a>
         </div>
       </div>
     </nav>

@@ -131,3 +131,8 @@ export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
 }
 
 
+export const deleteProduct = async(req:Request,res:Response):Promise<any>{
+
+    const {email} = req.params;
+    
+}
