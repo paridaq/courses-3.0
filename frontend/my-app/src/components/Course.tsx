@@ -75,7 +75,7 @@ import { useUser } from '../Context/AuthContext';
                         const reddit = await response.json();
 
                         const options = {
-                            key:'rzp_test_8RFS04mZ8mAZ43',
+                            key:'rzp_test_j6xXLOOm95LXs2',
                             amount:product.price*100,
                             currency:"INR",
                             name:'the Biswajit Parida',
@@ -113,37 +113,35 @@ import { useUser } from '../Context/AuthContext';
                         paymentObject.open();
 
                     } catch (error) {
-                        
+                        console.log(error)
+                        alert('order creation failed')
                     }
                 }
              
             
             return (
-                <div className="flex border border-gray-300 rounded-lg overflow-hidden w-full max-w-xl mt-5">
-                    {products.map((product)=>(
-                        <div key={product._id}>
-                            <h2>{product.productName}</h2>
-                            <h1>{product.price}</h1>
-                            <button className='bg-blue-600 text-cyan-50'> view details</button>
-                            <button className='bg-yellow-300 text-black' onClick={() => handleBuyNow(product)}>buy</button>
-                        </div>
-                    ))}
-                    {/* <img src="course-image.jpg" alt="Course" className="w-48 h-auto" />
-                    <div className="p-4 flex-1">
-                        <h2 className="text-2xl">Course Title</h2>
-                        <p className="text-lg">Course description goes here. It provides an overview of the course content and objectives.</p>
-                        <div className="flex justify-between items-center mt-4">
-                            <span className="text-xl font-bold">$99.99</span>
-                            <div>
-                                <button className="mr-2 bg-blue-500 text-white px-4 py-2 rounded">Buy</button>
-                                <button className="bg-blue-500 text-white px-4 py-2 rounded">View Details</button>
+                <div className="min-h-screen bg-gradient-to-r from-green-400 to-white flex flex-col items-center">
+                    <div className="flex flex-col items-center border border-gray-300 rounded-lg overflow-hidden w-full max-w-xl mt-5 bg-gradient-to-r from-green-400 to-white p-5">
+                        {products.map((product) => (
+                            <div key={product._id} className="w-full mb-4 p-4 bg-white rounded-lg shadow-md">
+                                <h2 className="text-xl font-bold text-green-700">{product.productName}</h2>
+                                <h1 className="text-lg text-gray-800">₹{product.price}</h1>
+                                <div className="flex justify-between mt-4">
+                                    <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">View Details</button>
+                                    <button className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600" onClick={() => handleBuyNow(product)}>Buy</button>
+                                </div>
                             </div>
-                        </div>
-                    </div> */}
+                        ))}
+                    </div>
                 </div>
             );
         };
 
         export default Course;
+
+
+
+
+        
       
    

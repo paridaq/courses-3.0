@@ -133,3 +133,34 @@ export const loginController =async(req:Request,res:Response):Promise<any>=>{
 
 
 }
+
+export const getuserName =async(req:Request,res:Response):Promise<any>=>{
+
+    const {email} = req.params;
+    if(!email){
+        return res.send({
+            message:'Email is required'
+        })
+    }
+    try {
+        const user = await userModel.findOne({email});
+        if(!email){
+            return res.send({
+                message:'Did not find any user In this email '
+            })
+        }
+        return res.status(200).send({
+            success:true,
+            message:'Username found succefully',
+            user
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return res.send({
+            success:false,
+            message:'server error failed to fetch the userName',
+            error
+        })
+    }
+}

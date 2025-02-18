@@ -17,8 +17,8 @@ import productModel from "../models/productModel";
     
 }
 const razorpay = new Razorpay({
-    key_id:  'rzp_test_8RFS04mZ8mAZ43',
-    key_secret:  '3L8BpJhzGH5jTyr6zHW2q3Wa'
+    key_id:  'rzp_test_j6xXLOOm95LXs2',
+    key_secret:  'YETDlFF8bY9QY4wPiBAF7Ntn'
 })
 
 
@@ -73,7 +73,7 @@ export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
     try{
 
     const generateSignature = crypto
-    .createHmac('Sha256', '3L8BpJhzGH5jTyr6zHW2q3Wa')
+    .createHmac('Sha256', 'YETDlFF8bY9QY4wPiBAF7Ntn')
     .update(orderId+'|'+paymentId)
     .digest('hex');
     if(generateSignature!=signature){
@@ -131,8 +131,13 @@ export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
 }
 
 
-export const deleteProduct = async(req:Request,res:Response):Promise<any>{
+export const deleteProduct = async(req:Request,res:Response):Promise<any>=>{
 
     const {email} = req.params;
-    
+
 }
+
+
+
+//rzp_test_j6xXLOOm95LXs2
+        //YETDlFF8bY9QY4wPiBAF7Ntn

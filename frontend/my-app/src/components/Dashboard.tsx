@@ -22,31 +22,30 @@ const Dashboard = () => {
     useEffect(() => {
       fetchDetails();
     }, [email])
-return(
-  <>
- {details ? (
-  <div>
-    <div>
-      <h1>{details.name}</h1>
-    </div>
-    <div>
-      <h1>Purchased Product</h1>
-      {Array.isArray(details.purchasedProducts) ? (
-      <ul>
-       {details.purchasedProducts.map((product:any)=>(
-        <li key={product._id}>
-          <span>{product.productName}</span>
-          <span>{product.paidPrice}</span>
-          <span>{product.dateOfPurchase}</span>
-        </li>
-       ))}
-      </ul>
-      ) : null}
-      
-    </div>
+return (
+  <div className="bg-gradient-to-r from-green-400 to-white min-h-screen flex items-center justify-center">
+    {details ? (
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-green-700">{details.name}</h1>
+        </div>
+        <div>
+          <h1 className="text-2xl font-semibold text-green-600 mb-4">Purchased Products</h1>
+          {Array.isArray(details.purchasedProducts) ? (
+            <ul className="space-y-4">
+              {details.purchasedProducts.map((product: any) => (
+                <li key={product._id} className="flex justify-between items-center bg-green-100 p-4 rounded-lg shadow">
+                  <span className="text-lg font-medium text-green-800">{product.productName}</span>
+                  <span className="text-lg text-green-600">{product.paidPrice}</span>
+                  <span className="text-sm text-green-500">{product.dateOfPurchase}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </div>
+    ) : null}
   </div>
-  ) : null}
-  </>
 )
 }
 

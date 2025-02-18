@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
 const Home = () => {
   const navigate  = useNavigate();
-  const location = useLocation();
-  const name = location.state?.name || 'Guest'
+  const[name,setName] = useState<string>('')
+  const email = localStorage.getItem('email')
 
+
+   async function fetchName(){
+    try{
+    const response = await fetch(`http://localhost:8080/api/auth/get-name/${email}`)
+    if(response.ok){
+      const userm = await response.json();
+      setName(userm.user.name)
+
+    }
+    console.log(name)
+
+    }catch(error){
+      console.log(error);
+
+    }
+
+    }
+  
+ useEffect(()=>{
+  if(email){
+    fetchName();
+  }
+ },[email])
   
   return (
     <div>
       <div className="bg-gradient-to-r from-white to-green-100 min-h-screen flex flex-col items-center justify-center pt-16">
-      <p className="text-lg font-medium text-purple-500 mb-4">Welcome ajay {name} to LearnQ</p>
+      <p className="text-lg font-medium text-purple-500 mb-4">Welcome {name} to LearnQ</p>
       <h1 className="text-5xl font-bold text-black mb-4">Start Learning from Us</h1>
       
       <p className="text-lg text-center mb-8 text-gray-800">Make your career progression correct. Correct the grammatical errors and build a text.</p>

@@ -1,5 +1,5 @@
 import express from 'express'
-import { getuserDetails, loginController, registerController } from '../controllers/authControllers';
+import { getuserDetails, getuserName, loginController, registerController } from '../controllers/authControllers';
 
 
 
@@ -10,5 +10,6 @@ router.post('/register',registerController );
 router.post('/login',loginController)
 
 router.get('/user-details/:email',getuserDetails);
+router.get('/get-name/:email',getuserName)
 
 export default router;
