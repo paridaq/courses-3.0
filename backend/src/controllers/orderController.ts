@@ -17,8 +17,8 @@ import productModel from "../models/productModel";
     
 }
 const razorpay = new Razorpay({
-    key_id:  'rzp_test_j6xXLOOm95LXs2',
-    key_secret:  'YETDlFF8bY9QY4wPiBAF7Ntn'
+    key_id:  'rzp_test_09VQZ4hfMNl1a6',
+    key_secret:  'sdqJcIOjMjQlHBupF5mkJvzD'
 })
 
 
@@ -42,6 +42,7 @@ export const createOrder = async(req:Request,res:Response):Promise<any>=>{
         receipt:`reciept_${Date.now()}`,
     }
     const order = await razorpay.orders.create(options)
+    console.log(order)
     return res.status(200).send({
         success:true,
         message:'order created succesfully',
@@ -73,7 +74,7 @@ export const verifyOrder = async(req:Request,res:Response):Promise<any>=>{
     try{
 
     const generateSignature = crypto
-    .createHmac('Sha256', 'YETDlFF8bY9QY4wPiBAF7Ntn')
+    .createHmac('Sha256', 'sdqJcIOjMjQlHBupF5mkJvzD')
     .update(orderId+'|'+paymentId)
     .digest('hex');
     if(generateSignature!=signature){

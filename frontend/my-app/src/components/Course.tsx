@@ -49,13 +49,23 @@ import { useUser } from '../Context/AuthContext';
                 const loadRazorpayScript = ()=>{
                     return new Promise((resolve)=>{
                         const script = document.createElement('script')
-                        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+                        script.src = "https://checkout.razorpay.com/v1/checkout.js";
                         script.onload=()=>resolve(true);
                         script.onerror=()=>resolve(false);
                         document.body.appendChild(script);
                     })
                 }
+                loadRazorpayScript().then((success)=>{
+                    if(!success){
+                        console.log("razorpay sdk failed")
+                    }
+                })
                 const handleBuyNow = async (product: Product) => {
+                    if(!email){
+                        alert('email is not available to proceed further')
+                        return
+                    }
+                    console.log(email)
 
                     
                     const data = { productName: product.productName, productPrice: product.price }
@@ -64,7 +74,7 @@ import { useUser } from '../Context/AuthContext';
                         alert('razorpay sdk failed to load.Please check the internate connection')
                         return;
                     }
-                    try {
+                    
                         const response = await fetch('http://localhost:8080/api/order/create-order',{
                             method:"POST",
                             headers:{
@@ -73,15 +83,19 @@ import { useUser } from '../Context/AuthContext';
                             body:JSON.stringify(data)
                         })
                         const reddit = await response.json();
+                        console.log(reddit.order.id)
 
                         const options = {
-                            key:'rzp_test_j6xXLOOm95LXs2',
+                            key:'rzp_test_09VQZ4hfMNl1a6',
                             amount:product.price*100,
                             currency:"INR",
                             name:'the Biswajit Parida',
                             description:'purchased product',
                             order_id:reddit.order.id,
                             handler:async(response:any)=>{
+
+                                console.log(response)
+
                                 const result = {orderId:response.razorpay_order_id,
                                   paymentId:response.razorpay_payment_id,
                                   signature:response.razorpay_signature,
@@ -109,13 +123,11 @@ import { useUser } from '../Context/AuthContext';
 
                             
                         }
+                        console.log(options)
                         const paymentObject = new window.Razorpay(options);
                         paymentObject.open();
 
-                    } catch (error) {
-                        console.log(error)
-                        alert('order creation failed')
-                    }
+                    
                 }
              
             
