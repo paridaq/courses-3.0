@@ -20,6 +20,7 @@ const razorpay = new Razorpay({
     key_id:  'rzp_test_09VQZ4hfMNl1a6',
     key_secret:  'sdqJcIOjMjQlHBupF5mkJvzD'
 })
+//i know i know i shared the keys here and It should be put in the .env and gitignore file  
 
 
 export const createOrder = async(req:Request,res:Response):Promise<any>=>{

@@ -27,27 +27,27 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-400 to-white flex items-center justify-center">
-      <div className="p-6 max-w-md mx-auto border border-gray-300 rounded-lg shadow-lg bg-white">
-        <h2 className="text-center text-2xl font-bold mb-6">Admin Dashboard</h2>
-        <form onSubmit={addProduct} className="flex flex-col gap-4">
-          <label htmlFor="Name" className="font-bold">Course Name</label>
-          <input
-            type="text"
-            placeholder="Add course name"
-            value={productName || ''}
-            onChange={(e) => setProductName(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-          />
-          <label htmlFor="price" className="font-bold">Price</label>
-          <input
-            type="number"
-            placeholder="Add price of the product"
-            value={price || ''}
-            onChange={(e) => setPrice(Number(e.target.value))}
-            className="p-2 border border-gray-300 rounded"
-          />
-          <button type="submit" className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add Product</button>
-        </form>
+      <div className="p-10 max-w-2xl w-full mx-auto border border-gray-300 rounded-lg shadow-2xl bg-white">
+      <h2 className="text-center text-3xl font-bold mb-8">Admin Dashboard</h2>
+      <form onSubmit={addProduct} className="flex flex-col gap-6">
+        <label htmlFor="Name" className="font-bold text-lg">Course Name</label>
+        <input
+        type="text"
+        placeholder="Add course name"
+        value={productName || ''}
+        onChange={(e) => setProductName(e.target.value)}
+        className="p-3 border border-gray-300 rounded-lg"
+        />
+        <label htmlFor="price" className="font-bold text-lg">Price</label>
+        <input
+        type="number"
+        placeholder="Add price of the product"
+        value={price || ''}
+        onChange={(e) => setPrice(Number(e.target.value))}
+        className="p-3 border border-gray-300 rounded-lg"
+        />
+        <button type="submit" className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Add Product</button>
+      </form>
       </div>
     </div>
   );

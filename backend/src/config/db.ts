@@ -12,7 +12,7 @@ const connectDb = async()=>{
     try {
         // the mongo_uri should be string
         const conn = await mongoose.connect(process.env.MONGO_URI as string || 'mongodb+srv://biswajit:biswajit1234@cluster0.xxscw.mongodb.net/' )
-
+//i know ishared the mongodb uri it should be in the.env
         console.log(`Connected to mongoDb database ${conn.connection.host}`)
     } catch (error) {
         console.log(error)

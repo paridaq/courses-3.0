@@ -85,7 +85,7 @@ import { useUser } from '../Context/AuthContext';
                         const reddit = await response.json();
                         console.log(reddit.order.id)
 
-                        const options = {
+                        const options = { 
                             key:'rzp_test_09VQZ4hfMNl1a6',
                             amount:product.price*100,
                             currency:"INR",
