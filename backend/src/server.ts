@@ -1,4 +1,4 @@
-import express from'express';
+import express, { request } from'express';
 import dotenv from 'dotenv'
 import connectDb from './config/db';
 import {Request,Response} from 'express'
@@ -23,10 +23,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth',authRoute)
 app.use('/api/product',productRoute)
 app.use('/api/order',orderRoute)
-
+app.get('/',(req:Request,res:Response)=>{
+    res.send('what nigga ')
+})
 
 const port = 8080;
 
 app.listen(port,()=>{
-    console.log(`server is running on port ${port}`)
+   console.log(`server is running on port ${port}`)
 })
+
+
+module.exports = app

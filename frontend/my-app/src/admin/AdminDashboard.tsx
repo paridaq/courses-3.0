@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const AdminDashboard = () => {
   const [productName, setProductName] = useState<string>('');
   const [price, setPrice] = useState<number>();
+  const navigate = useNavigate();
 
   const addProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ const AdminDashboard = () => {
         body: JSON.stringify(data),
       });
       const res = await response.json();
+        navigate('/')
       if (!response.ok) {
         throw new Error('error in registration');
       }
