@@ -21,6 +21,9 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use('/api/auth', authRoute_1.default);
 app.use('/api/product', productRoute_1.default);
 app.use('/api/order', orderRoute_1.default);
+app.get('/', (req, res) => {
+    res.send('what nigga ');
+});
 const port = 8080;
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);

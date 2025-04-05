@@ -26,7 +26,7 @@ import { useUser } from '../Context/AuthContext';
             const fetchProducts = async()=>{
                 // In the fetch api the default method is GET mefod so there  is no need to add method in fetch
                 try{
-                const response = await fetch('http://localhost:8080/api/product/get-products')
+                const response = await fetch('https://courses-3-0.vercel.app/api/product/get-products')
                 const result = await response.json();
                 setProducts(result.Products);
                 setLoading(false)
