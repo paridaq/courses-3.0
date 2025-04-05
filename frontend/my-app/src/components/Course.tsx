@@ -26,7 +26,7 @@ import { useUser } from '../Context/AuthContext';
             const fetchProducts = async()=>{
                 // In the fetch api the default method is GET mefod so there  is no need to add method in fetch
                 try{
-                const response = await fetch('https://courses-3-0.vercel.app/api/product/get-products')
+                const response = await fetch('https://courses-3-0-y3ty.vercel.app/api/product/get-products')
                 const result = await response.json();
                 setProducts(result.Products);
                 setLoading(false)
@@ -75,7 +75,7 @@ import { useUser } from '../Context/AuthContext';
                         return;
                     }
                     
-                        const response = await fetch('http://localhost:8080/api/order/create-order',{
+                        const response = await fetch('https://courses-3-0-y3ty.vercel.app/api/order/create-order',{
                             method:"POST",
                             headers:{
                                 "Content-Type":"application/json"
@@ -103,7 +103,7 @@ import { useUser } from '../Context/AuthContext';
                                   productPrice:product.price 
                                 }
                                 console.log(result)
-                                const verificationResponse = await fetch(`http://localhost:8080/api/order/verify-order/${email}`,{
+                                const verificationResponse = await fetch(`https://courses-3-0-y3ty.vercel.app/api/order/verify-order/${email}`,{
                                     method:"POST",
                                     headers:{
                                      "Content-Type":"application/json"   

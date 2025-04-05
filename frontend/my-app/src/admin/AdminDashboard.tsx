@@ -9,7 +9,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     const data = { productName, price };
     try {
-      const response = await fetch('http://localhost:8080/api/product/add-product', {
+      const response = await fetch('https://courses-3-0-y3ty.vercel.app/api/product/add-product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

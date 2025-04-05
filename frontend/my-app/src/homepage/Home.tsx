@@ -11,7 +11,7 @@ const Home = () => {
 
    async function fetchName(){
     try{
-    const response = await fetch(`http://localhost:8080/api/auth/get-name/${email}`)
+    const response = await fetch(`https://courses-3-0-y3ty.vercel.app/api/auth/get-name/${email}`)
     if(response.ok){
       const userm = await response.json();
       setName(userm.user.name)

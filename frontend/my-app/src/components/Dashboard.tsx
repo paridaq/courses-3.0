@@ -7,7 +7,7 @@ const Dashboard = () => {
 
   const fetchDetails = async()=>{
     try {
-      const response = await fetch(`http://localhost:8080/api/auth/user-details/${email}`)
+      const response = await fetch(`https://courses-3-0-y3ty.vercel.app/api/auth/user-details/${email}`)
       if(response.ok){
        const results = await response.json();
        setDetails(results.details || []);
